@@ -102,16 +102,16 @@ namespace Kalkulator
             TextBlock tb = tekst;
 
 
-            if (IsEnding(button)) //TODO
+            if (IsEnding(button)) 
             {
 
                 wholeText = tb.Text;
-
-
+                //TODO 
+                //TUTAJ ma posłać do Inputa w between lub Input between ma sam sobie pobrać wholeText.
             }
             else
             {
-
+                //nie =
             }
 
 

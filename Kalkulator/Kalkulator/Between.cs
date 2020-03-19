@@ -13,6 +13,7 @@ namespace Kalkulator
         /// </summary>
         MainWindow mw;
         string ot;
+        string inp;
         public Between()
         {
             mw = new MainWindow();
@@ -22,7 +23,8 @@ namespace Kalkulator
         {
             if (mw.End)
             {
-                Operating opera = new Operating(mw.WholeText);
+                Input = mw.WholeText;
+                Operating opera = new Operating(Input);
                 Output = opera.Output;
                 mw.End = false;
                 mw.Output = Output;
@@ -31,11 +33,15 @@ namespace Kalkulator
 
         public string Output
         {
-            get { return ot; }
             set { ot = value; }
+            get { return ot; }
         }
 
-
+        public string Input
+        {
+            set { inp = value; }
+            get { return inp; }
+        }
 
 
 
