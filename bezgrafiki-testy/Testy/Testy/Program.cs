@@ -4,29 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kalkulator
+namespace Testy
 {
-    /// <summary>
-    ///Klasa do liczenia
-    /// </summary>
-    class Operating
+    class Program
     {
-        MainWindow mw;
-        string ot;
-        string inp;
-        public Operating(MainWindow mw)
+        static void Main(string[] args)
         {
-            this.mw = mw;
-        }
+           Console.WriteLine(Calculate(Divide("1.8+6/3")));
 
-        public string Output
-        {
-            get { return ot; }
-            set { ot = value; }
+            Console.ReadKey();
         }
 
 
-        List<String> Divide(string tekst)
+        public static List<String> Divide(string tekst)
         {
             //podzieli string na liczby i znaki,
             //przykładowo dla 13+45/5 da {"13","+","45", "/","5"}
@@ -62,17 +52,12 @@ namespace Kalkulator
             return divided;
         }
 
-        public string Calculate(string str)
+        static  string Calculate(List<String> ls)
         {
-            List<String> ls = Divide(str);
             double x = 0;
             double temp = 0;
             double sec;
-            int n = ls.Count - 1;
-            if (str == "") return "";
-            else
-            {
-
+            int n = ls.Count-1;
             byte[] ascii = Encoding.ASCII.GetBytes(ls[0]);
 
             //żeby pierwszy i ostatni element nie był przypadkowo jakimś znakiem
@@ -92,7 +77,7 @@ namespace Kalkulator
             while (i < n)
             {
                 ascii = Encoding.ASCII.GetBytes(ls[i]);
-                //      Console.WriteLine(ascii[0] + "||" + ls[i]);
+          //      Console.WriteLine(ascii[0] + "||" + ls[i]);
                 if (ascii[0] >= 58 || ascii[0] <= 47)
                 {
                     sec = Sd(ls[i + 1]);
@@ -134,16 +119,16 @@ namespace Kalkulator
             }
 
             return Convert.ToString(temp);
-
-            }
         }
 
-        double Sd(string s) //string->double
+        static double Sd(string s) //string->double
         {
             s = s.Replace('.', ',');
             double d = Convert.ToDouble(s);
             Console.WriteLine(s + " = " + d);
             return d;
         }
+
     }
 }
+

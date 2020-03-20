@@ -1,0 +1,6 @@
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\bin\Debug\Testy.exe.config
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\bin\Debug\Testy.exe
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\bin\Debug\Testy.pdb
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\obj\Debug\Testy.csprojAssemblyReference.cache
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\obj\Debug\Testy.exe
+D:\STUDIA\0.INF\I4. Programowanie obiektowe (Zielonka)\Kalkulator\Kalkulator-POiG\bezgrafiki-testy\Testy\Testy\obj\Debug\Testy.pdb

@@ -23,33 +23,23 @@ namespace Kalkulator
         string wholeText;
         bool end;
         string ot;
+        Operating opera;
         public MainWindow()
         {
+            //NOTE TO ktokolwiek będzie to czytał:
+            //przycisk "kwadrat" to nie ^2, tylko ^n i dalej się wpisuje n
+            //ale nie zmieniałam już wszędzie jego nazwy
             InitializeComponent();
             SpecialSymbols();
+            opera = new Operating(this);
 
         }
 
-        public string WholeText
-        {
-            get { return wholeText; }
-        }
 
-        public bool End
-        {
-            get { return end; }
-            set { end = value; }
-        }
-
-        public string Output
-        {
-            set { ot = value; }
-        }
-
-        //wszystkie te unicodowe symbole typu x^2 czy sqr(x)
+        //wszystkie te unicodowe symbole typu x^n czy sqr(x)
         private void SpecialSymbols()
         {
-            kwadrat.Content = "x" + "\u00b2";
+            kwadrat.Content = "x"+ "\u207f";
             pierwiastek.Content = "\u221a" + "x";
             back.Content = "\u232b";
             odwrotnosc.Content = "\u00b9" + "\u2215" + "\u2093"; //"1"+ "\u2215" +"x";
@@ -61,12 +51,12 @@ namespace Kalkulator
         }
 
 
-        private bool IsSpecial(Button button) //bez = i backa
+        private bool IsSpecial(Button button) //bez = i wszystkich deletów
         {
             string cont = Convert.ToString(button.Content);
             switch(cont)
             {
-                case "x" + "\u00b2": return true; //kwadrat
+                case "x"+"\u207f": return true; //kwadrat (potęga ^n)
                 case "\u221a" + "x": return true;//pierwiastek
                 case "\u00b9" + "\u2215" + "\u2093": return true;//odwrotość
                 case "\u00F7": return true; //dzielenie
@@ -78,6 +68,19 @@ namespace Kalkulator
             }
         }
 
+        private bool IsSpecialChar(char c)
+        {
+            switch (c)
+            {
+                case '^': return true; //kwadrat (potęga ^n)
+                case '\u221a': return true;//pierwiastek
+                case '/': return true; //dzielenie
+                case '*': return true; //mnozenie
+                case '-': return true; //minus
+                case '+': return true;//plus
+                default: return false;
+            }
+        }
 
         private bool IsDeleting(Button button) //te trzy usuwające
         {
@@ -92,6 +95,7 @@ namespace Kalkulator
         }
         private bool IsEnding(Button button)
         {
+            //czy kliknięto =
             string cont = Convert.ToString(button.Content);
             if (cont == "=") return true;
             else return false;
@@ -100,25 +104,115 @@ namespace Kalkulator
         {
             var button = sender as Button;
             TextBlock tb = tekst;
+            TextBlock saved = savedT;
 
 
-            if (IsEnding(button)) 
+            if (IsEnding(button))
             {
-
-                wholeText = tb.Text;
-                //TODO 
-                //TUTAJ ma posłać do Inputa w between lub Input between ma sam sobie pobrać wholeText.
+                // znak =
+                saved.Text += tb.Text;
+                tb.Text = opera.Calculate(saved.Text);
+                end = true;
             }
             else
             {
-                //nie =
+
+                if (IsDeleting(button))
+                {
+                    //któreś usuwanie
+                    switch (button.Name)
+                    {
+                        case "c":
+                            tekst.Text = "";
+                            savedT.Text = "";
+                            break;
+                        case "ce":
+                            tekst.Text = "";
+                            break;
+                        case "back":
+                            if (tekst.Text.Length > 0) tekst.Text = tekst.Text.Remove(tekst.Text.Length - 1);
+                            break;
+                    }
+                }
+
+
+                else if (IsSpecial(button))//&& !IsSpecialChar(saved.Text.Last()))
+                {
+                    bool canbe = true;
+                    if (saved.Text == "")
+                    {
+                        if (tb.Text == "") canbe = false;
+                    }
+                    else
+                    { if (IsSpecialChar(saved.Text.Last()) && tb.Text == "") canbe = false; }
+
+
+                    if (canbe)
+                    {
+                        double x;
+                        decimal d;
+
+                        switch (button.Name)
+                        {
+                            //dwa instanty
+                            case "znak":
+                                tekst.Text = tekst.Text.Replace('.', ',');
+                                x = Convert.ToDouble(tekst.Text) * (-1);
+                                tekst.Text = Convert.ToString(x);
+                                break;
+                            case "odwrotnosc":
+                                tekst.Text = tekst.Text.Replace('.', ',');
+                                d = Convert.ToDecimal(tekst.Text);
+                                x = 1 / Convert.ToDouble(d);
+                                tekst.Text = Convert.ToString(x);
+                                break;
+                            //dodawane do stringa
+                            case "kwadrat":
+                                saved.Text += tekst.Text;
+                                saved.Text += "^"; //94
+                                tekst.Text = "";
+                                break;
+                            case "pierwiastek":
+                                saved.Text += tekst.Text;
+                                saved.Text += "\u221a"; //251
+                                tekst.Text = "";
+                                break;
+                            case "dzielenie":
+                                saved.Text += tekst.Text;
+                                saved.Text += "/"; //44
+                                tekst.Text = "";
+                                break;
+                            case "mnozenie":
+                                saved.Text += tekst.Text;
+                                saved.Text += "*"; //42
+                                tekst.Text = "";
+                                break;
+                            case "minus":
+                                saved.Text += tekst.Text;
+                                saved.Text += "-"; //45
+                                tekst.Text = "";
+                                break;
+                            case "plus":
+                                saved.Text += tekst.Text;
+                                saved.Text += "+"; //43
+                                tekst.Text = "";
+                                break;
+                            case "przecinek":
+                                saved.Text += tekst.Text;
+                                saved.Text += ",";//44
+                                tekst.Text = "";
+                                break;
+                        }
+                    }
+                }
+                else if(!IsSpecial(button))
+                {
+                    //cyfra
+                    tb.Text += Convert.ToString(button.Content);
+                    // saved.Text += Convert.ToString(button.Content);
+                }
+
             }
-
-
-
-
-            tb.Text+=Convert.ToString(button.Content);
-
 
         }
 
