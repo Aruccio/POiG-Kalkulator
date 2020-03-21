@@ -73,7 +73,7 @@ namespace Kalkulator
             switch (c)
             {
                 case '^': return true; //kwadrat (potęga ^n)
-                case '\u221a': return true;//pierwiastek
+              //  case '\u221a': return true;//pierwiastek
                 case '/': return true; //dzielenie
                 case '*': return true; //mnozenie
                 case '-': return true; //minus
@@ -81,6 +81,13 @@ namespace Kalkulator
                 default: return false;
             }
         }
+
+        private bool IsSqr(char c)
+        {
+            if (c == '\u221a') return true;
+            else return false;
+        }
+
 
         private bool IsDeleting(Button button) //te trzy usuwające
         {
@@ -111,6 +118,7 @@ namespace Kalkulator
             {
                 // znak =
                 saved.Text += tb.Text;
+                tb.Text = "";
                 tb.Text = opera.Calculate(saved.Text);
                 end = true;
             }
@@ -144,7 +152,12 @@ namespace Kalkulator
                         if (tb.Text == "") canbe = false;
                     }
                     else
-                    { if (IsSpecialChar(saved.Text.Last()) && tb.Text == "") canbe = false; }
+                    {
+                        if (IsSpecialChar(saved.Text.Last()) && tb.Text == "") canbe = false;
+                        if (IsSqr(saved.Text.Last()) && tb.Text=="") canbe = false;
+                    }
+
+                    if (saved.Text == "" && button == pierwiastek) canbe = true;
 
 
                     if (canbe)

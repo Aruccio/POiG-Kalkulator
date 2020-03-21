@@ -41,9 +41,9 @@ namespace Kalkulator
                 x = "";
 
 
-                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46)
+                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i]==251)
                 {
-                    //cyfra
+                    //cyfra, w tym pierwiastek, np 2 pierwiastki z 3
                     x += Convert.ToString((char)ascii[i]);
                     i++;
                     if (i >= n) break;
@@ -81,12 +81,13 @@ namespace Kalkulator
 
             n = ls.Count - 1;
             ascii = Encoding.ASCII.GetBytes(ls[n]);
-            if ((ascii[0] >= 58 || ascii[0] <= 47) && ascii[0] != 46)
+            if (ascii[0] >= 58 || ascii[0] <= 47)
                 ls.RemoveAt(n);
 
             n = ls.Count - 1;
 
             temp = Sd(ls[0]);
+
 
             int i = 1;
             while (i < n)
@@ -115,7 +116,7 @@ namespace Kalkulator
                             temp = Math.Pow(temp, sec);
                             break;
                         case "\u221a": //pierwiastek
-                            temp = Math.Sqrt(temp);
+                          //  temp = Math.Sqrt(temp);
                             break;
                     }
                     i += 2;
