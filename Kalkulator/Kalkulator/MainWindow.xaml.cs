@@ -40,7 +40,7 @@ namespace Kalkulator
         private void SpecialSymbols()
         {
             kwadrat.Content = "x"+ "\u207f";
-            pierwiastek.Content = "\u221a" + "x";
+            //pierwiastek.Content = "\u221a" + "x";
             back.Content = "\u232b";
             odwrotnosc.Content = "\u00b9" + "\u2215" + "\u2093"; //"1"+ "\u2215" +"x";
             dzielenie.Content = "\u00F7";
@@ -117,13 +117,19 @@ namespace Kalkulator
             if (IsEnding(button))
             {
                 // znak =
-                saved.Text += tb.Text;
+                saved.Text += tb.Text+"=";
                 tb.Text = "";
                 tb.Text = opera.Calculate(saved.Text);
                 end = true;
             }
             else
             {
+                if(end==true)
+                {
+                    tb.Text = "";
+                    saved.Text = "";
+                    end = false;
+                }
 
                 if (IsDeleting(button))
                 {
@@ -157,8 +163,6 @@ namespace Kalkulator
                         if (IsSqr(saved.Text.Last()) && tb.Text=="") canbe = false;
                     }
 
-                    if (saved.Text == "" && button == pierwiastek) canbe = true;
-
 
                     if (canbe)
                     {
@@ -185,11 +189,6 @@ namespace Kalkulator
                                 saved.Text += "^"; //94
                                 tekst.Text = "";
                                 break;
-                            case "pierwiastek":
-                                saved.Text += tekst.Text;
-                                saved.Text += "\u221a"; //251
-                                tekst.Text = "";
-                                break;
                             case "dzielenie":
                                 saved.Text += tekst.Text;
                                 saved.Text += "/"; //44
@@ -210,18 +209,16 @@ namespace Kalkulator
                                 saved.Text += "+"; //43
                                 tekst.Text = "";
                                 break;
-                            case "przecinek":
-                                saved.Text += tekst.Text;
-                                saved.Text += ",";//44
-                                tekst.Text = "";
-                                break;
                         }
                     }
                 }
                 else if(!IsSpecial(button))
                 {
-                    //cyfra
-                    tb.Text += Convert.ToString(button.Content);
+                    //cyfra lub przecinek
+                    if (button == przecinek)
+                    { if (!tb.Text.Contains(',')) tb.Text += ","; }
+                    else
+                        tb.Text += Convert.ToString(button.Content);
                     // saved.Text += Convert.ToString(button.Content);
                 }
 

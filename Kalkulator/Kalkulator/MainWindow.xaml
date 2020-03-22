@@ -17,12 +17,12 @@
         <StackPanel Grid.Row="0" Background="LightGreen"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Margin="10,5,10,10">
-            <TextBlock x:Name="savedT" Margin="0,8,0,0" Width="350" Height="50"
+            <TextBlock x:Name="savedT" Margin="0,5,0,0" Width="350" Height="50"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Background="DarkMagenta" TextAlignment="Right" FontSize="20"
                         Foreground="White" Text=""
                        FontFamily="Courier" TextWrapping="Wrap"/>
-            <TextBlock x:Name="tekst" Margin="0,0,0,0" Width="350" Height="50"
+            <TextBlock x:Name="tekst" Margin="0,0,0,5" Width="350" Height="50"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Background="DarkMagenta" TextAlignment="Right" FontSize="40"
                         Foreground="White" Text=""
@@ -69,14 +69,14 @@
                         Content="kw" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
-                <Button x:Name="pierwiastek" Width="80" Height="60" Margin="5,5,5,5"
-                        Background="DarkMagenta" Foreground="White"
-                        Content="sqr" FontSize="30"  FontFamily="Courier"
-                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Click="button_Click"/>
                 <Button x:Name="dzielenie" Width="80" Height="60" Margin="5,5,5,5"
                         Background="DarkMagenta" Foreground="White"
                         Content="%" FontSize="30"  FontFamily="Courier"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Click="button_Click"/>
+                <Button x:Name="mnozenie" Width="80" Height="60" Margin="5,5,5,5"
+                        Background="DarkMagenta" Foreground="White"
+                        Content="x" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
             </StackPanel>
@@ -100,9 +100,9 @@
                         Content="9" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
-                <Button x:Name="mnozenie" Width="80" Height="60" Margin="5,5,5,5"
+                <Button x:Name="minus" Width="80" Height="60" Margin="5,5,5,5"
                         Background="DarkMagenta" Foreground="White"
-                        Content="x" FontSize="30"  FontFamily="Courier"
+                        Content="-" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
             </StackPanel>
@@ -126,9 +126,9 @@
                         Content="6" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
-                <Button x:Name="minus" Width="80" Height="60" Margin="5,5,5,5"
-                        Background="DarkMagenta" Foreground="White"
-                        Content="-" FontSize="30"  FontFamily="Courier"
+                <Button x:Name="plus" Width="80" Height="60" Margin="5,5,5,5"
+                    Background="DarkMagenta" Foreground="White"
+                        Content="+" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
             </StackPanel>
@@ -152,23 +152,19 @@
                         Content="3" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
-                <Button x:Name="plus" Width="80" Height="60" Margin="5,5,5,5"
-                    Background="DarkMagenta" Foreground="White"
-                        Content="+" FontSize="30"  FontFamily="Courier"
+                <Button x:Name="znak" Width="80" Height="60" Margin="5,5,5,5"
+                        Background="DarkMagenta" Foreground="White"
+                        Content="+-" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
+                
             </StackPanel>
 
             <!-- szosty wiersz-->
             <StackPanel Grid.Row="1" Background="LightGreen"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="znak" Width="80" Height="60" Margin="5,5,5,5"
-                        Background="DarkMagenta" Foreground="White"
-                        Content="+-" FontSize="30"  FontFamily="Courier"
-                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Click="button_Click"/>
-                <Button x:Name="zero" Width="80" Height="60" Margin="5,5,5,5"
+                <Button x:Name="zero" Width="168" Height="60" Margin="5,5,5,5"
                         Background="DarkMagenta" Foreground="White"
                         Content="0" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -183,6 +179,8 @@
                         Content="=" FontSize="30"  FontFamily="Courier"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Click="button_Click"/>
+
+
             </StackPanel>
 
 

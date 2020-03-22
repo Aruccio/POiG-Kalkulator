@@ -41,9 +41,12 @@ namespace Kalkulator
                 x = "";
 
 
-                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i]==251)
+                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i] == 45)
+                //liczba                           przecinek      minus(zmiana znaku)
                 {
-                    //cyfra, w tym pierwiastek, np 2 pierwiastki z 3
+
+                    if (ascii[i] == 46) x += "0";
+
                     x += Convert.ToString((char)ascii[i]);
                     i++;
                     if (i >= n) break;
@@ -73,78 +76,89 @@ namespace Kalkulator
             else
             {
 
-            byte[] ascii = Encoding.ASCII.GetBytes(ls[0]);
+                byte[] ascii = Encoding.ASCII.GetBytes(ls[0]);
 
-            //żeby pierwszy i ostatni element nie był przypadkowo jakimś znakiem
-            if ((ascii[0] >= 58 || ascii[0] <= 47) && ascii[0] != 46)
-                ls.RemoveAt(0);
+                //żeby pierwszy i ostatni element nie był przypadkowo jakimś znakiem
+                if ((ascii[0] >= 58 || ascii[0] <= 47) && ascii[0] != 46 && ascii[0] != 45)
+                    ls.RemoveAt(0);
 
-            n = ls.Count - 1;
-            ascii = Encoding.ASCII.GetBytes(ls[n]);
-            if (ascii[0] >= 58 || ascii[0] <= 47)
-                ls.RemoveAt(n);
-
-            n = ls.Count - 1;
-
-            temp = Sd(ls[0]);
-
-
-            int i = 1;
-            while (i < n)
-            {
-                ascii = Encoding.ASCII.GetBytes(ls[i]);
-                //      Console.WriteLine(ascii[0] + "||" + ls[i]);
+                n = ls.Count - 1;
+                ascii = Encoding.ASCII.GetBytes(ls[n]);
                 if (ascii[0] >= 58 || ascii[0] <= 47)
+                    ls.RemoveAt(n);
+
+                n = ls.Count - 1;
+                if (ls == null)
                 {
-                    sec = Sd(ls[i + 1]);
-                    switch (ls[i])
+                    ls = new List<String>();
+                    ls.Add(mw.savedT.Text);
+                }
+                Console.WriteLine(ls[0]);
+                temp = Sd(ls[0]);
+
+                int i = 1;
+                bool znak = false;
+                while (i < n)
+                {
+                    ascii = Encoding.ASCII.GetBytes(ls[i]);
+                    //      Console.WriteLine(ascii[0] + "||" + ls[i]);
+                    if (ascii[0] >= 58 || ascii[0] <= 47)
                     {
-                        case "+":
-                            temp += sec;
-                            break;
-                        case "-":
-                            temp -= sec;
-                            break;
-                        case "*":
-                            temp *= sec;
-                            break;
-                        case "/":
-                            if (sec == 0) return "ERROR: DZIELENIE PRZEZ 0";
-                            else temp /= sec;
-                            break;
-                        case "^":
-                            temp = Math.Pow(temp, sec);
-                            break;
-                        case "\u221a": //pierwiastek
-                          //  temp = Math.Sqrt(temp);
-                            break;
+                        if (ls[i + 1] == "-")
+                        {
+                            sec = -Sd(ls[i + 2]);
+                            znak = true;
+                        }
+                        else sec = Sd(ls[i + 1]);
+
+                        switch (ls[i])
+                        {
+                            case "+":
+                                temp += sec;
+                                break;
+                            case "-":
+                                temp -= sec;
+                                break;
+                            case "*":
+                                temp *= sec;
+                                break;
+                            case "/":
+                                if (sec == 0) return "ERROR: DZIELENIE PRZEZ 0";
+                                else temp /= sec;
+                                break;
+                            case "^":
+                                temp = Math.Pow(temp, sec);
+                                break;
+                        }
+                        i += 2;
+                        if (znak) i++;
+                        znak = false;
+                        if (i >= n) break;
                     }
-                    i += 2;
-                    if (i >= n) break;
-                }
-                else
-                {
-                    if (ascii[0] == 46)
-                        temp = Sd("0" + ls[i]);
-                    else temp = Sd(ls[i]);
-                    i++;
-                    if (i >= n) break;
+                    else
+                    {
+                        if (ascii[0] == 46)
+                            temp = Sd("0" + ls[i]);
+                        else temp = Sd(ls[i]);
+                        i++;
+                        if (i >= n) break;
+                    }
+
+                    Console.WriteLine(temp);
                 }
 
-                Console.WriteLine(temp);
-            }
-
-            return Convert.ToString(temp);
+                return Convert.ToString(temp);
 
             }
         }
 
-        double Sd(string s) //string->double
-        {
-            s = s.Replace('.', ',');
-            double d = Convert.ToDouble(s);
-            Console.WriteLine(s + " = " + d);
-            return d;
-        }
+
+            double Sd(string s) //string->double
+            {
+                s = s.Replace('.', ',');
+                double d = Convert.ToDouble(s);
+                Console.WriteLine(s + " = " + d);
+                return d;
+            }
     }
 }
