@@ -128,6 +128,7 @@ namespace Kalkulator
                 {
                     tb.Text = "";
                     saved.Text = "";
+                    wholeText = "";
                     end = false;
                 }
 
