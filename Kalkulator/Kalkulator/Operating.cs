@@ -100,6 +100,13 @@ namespace Kalkulator
                 n = ls.Count - 1;
 
                 //pierwsze temp;
+                if (ls[0] == "-")
+                {
+                    temp = -Sd(ls[1]);
+                    i += 1;
+                }
+                else temp = Sd(ls[0]);
+
 
 
                 bool znak = false;
@@ -118,12 +125,7 @@ namespace Kalkulator
                         else sec = Sd(ls[i + 1]);
 
                         //jeśli pierwsza liczba jest z minusem
-                        if (i == 2)
-                        {
-                            if (ls[0] == "-") temp = -Sd(ls[1]);
-                            else temp = Sd(ls[1]);
-                        }
-                        else temp = Sd(ls[i - 1]);
+
 
                         switch (ls[i])
                         {
