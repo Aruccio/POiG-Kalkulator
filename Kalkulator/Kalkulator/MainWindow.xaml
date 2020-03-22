@@ -16,17 +16,17 @@
 
         <StackPanel Grid.Row="0" Background="LightGreen"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Margin="10,5,10,10">
-            <TextBlock x:Name="savedT" Margin="0,5,0,0" Width="350" Height="50"
+                    Margin="10,10,10,10">
+            <TextBlock x:Name="savedT" Margin="0,8,0,0" Width="350" Height="40"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Background="DarkMagenta" TextAlignment="Right" FontSize="20"
-                        Foreground="White" Text=""
-                       FontFamily="Courier" TextWrapping="Wrap"/>
-            <TextBlock x:Name="tekst" Margin="0,0,0,5" Width="350" Height="50"
+                        Background="DarkMagenta" TextAlignment="Right" FontSize="15"
+                        Foreground="White" Text="" Padding="4"
+                       FontFamily="Courier" TextWrapping="NoWrap"/>
+            <TextBlock x:Name="tekst" Margin="0,0,0,8" Width="350" Height="50"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Background="DarkMagenta" TextAlignment="Right" FontSize="40"
+                        Background="DarkMagenta" TextAlignment="Right" FontSize="45"
                         Foreground="White" Text=""
-                       FontFamily="Courier" TextWrapping="Wrap"/>
+                       FontFamily="Courier" TextWrapping="NoWrap"/>
         </StackPanel>
 
         <!-- pierwszy wiersz-->

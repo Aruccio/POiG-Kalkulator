@@ -119,7 +119,7 @@ namespace Kalkulator
                 // znak =
                 saved.Text += tb.Text;
                 tb.Text = "";
-                tb.Text = opera.Calculate(saved.Text);
+                tb.Text = opera.Calculate(wholeText);
                 end = true;
             }
             else
@@ -181,45 +181,56 @@ namespace Kalkulator
                                 tekst.Text = tekst.Text.Replace('.', ',');
                                 d = Convert.ToDecimal(tekst.Text);
                                 x = 1 / Convert.ToDouble(d);
-                                tekst.Text = Convert.ToString(x);
+                                wholeText += Convert.ToString(x);
+                                tekst.Text = "";
                                 break;
                             //dodawane do stringa
                             case "kwadrat":
-                                saved.Text += tekst.Text;
-                                saved.Text += "^"; //94
+                                wholeText += tekst.Text;
+                                wholeText += "^"; //94
                                 tekst.Text = "";
                                 break;
                             case "dzielenie":
-                                saved.Text += tekst.Text;
-                                saved.Text += "/"; //44
+                                wholeText += tekst.Text;
+                                wholeText += "/"; //44
                                 tekst.Text = "";
                                 break;
                             case "mnozenie":
-                                saved.Text += tekst.Text;
-                                saved.Text += "*"; //42
+                                wholeText += tekst.Text;
+                                wholeText += "*"; //42
                                 tekst.Text = "";
                                 break;
                             case "minus":
-                                saved.Text += tekst.Text;
-                                saved.Text += "-"; //45
+                                wholeText += tekst.Text;
+                                wholeText += "-"; //45
                                 tekst.Text = "";
                                 break;
                             case "plus":
-                                saved.Text += tekst.Text;
-                                saved.Text += "+"; //43
+                                wholeText += tekst.Text;
+                                wholeText += "+"; //43
                                 tekst.Text = "";
                                 break;
                         }
                     }
+
+                    //żeby nie wychodziło za ramki savedT
+                    int len =42; 
+                    if (wholeText.Length >= len)
+                        saved.Text = wholeText.Substring(wholeText.Length - len, len);
+                    else saved.Text = wholeText;
                 }
                 else if(!IsSpecial(button))
                 {
-                    //cyfra lub przecinek
-                    if (button == przecinek)
-                    { if (!tb.Text.Contains(',')) tb.Text += ","; }
-                    else
-                        tb.Text += Convert.ToString(button.Content);
-                    // saved.Text += Convert.ToString(button.Content);
+                    if(tb.Text.Length<14)
+                    {
+                        //cyfra lub przecinek
+                        if (button == przecinek)
+                        { if (!tb.Text.Contains(',')) tb.Text += ","; }
+                        else
+                            tb.Text += Convert.ToString(button.Content);
+                        // saved.Text += Convert.ToString(button.Content);
+                    }
+
                 }
 
             }
