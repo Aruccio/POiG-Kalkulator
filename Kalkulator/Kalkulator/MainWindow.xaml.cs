@@ -117,7 +117,7 @@ namespace Kalkulator
             if (IsEnding(button))
             {
                 // znak =
-                saved.Text += tb.Text+"=";
+                saved.Text += tb.Text;
                 tb.Text = "";
                 tb.Text = opera.Calculate(saved.Text);
                 end = true;

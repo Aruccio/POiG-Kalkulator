@@ -30,6 +30,8 @@ namespace Kalkulator
         {
             //podzieli string na liczby i znaki,
             //przykładowo dla 13+45/5 da {"13","+","45", "/","5"}
+            // dla 13+5.6 da {"13","+", "5.6"}
+            tekst = tekst.Replace('.', ',');
             byte[] ascii = Encoding.ASCII.GetBytes(tekst);
             int n = ascii.Length;
             List<string> divided = new List<string>();
@@ -40,27 +42,31 @@ namespace Kalkulator
             {
                 x = "";
 
-
-                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i] == 45)
-                //liczba                           przecinek      minus(zmiana znaku)
+                while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i] == 44)
+                //liczba                                    przecinek      lub kropka, bywa i tak
                 {
-
-                    if (ascii[i] == 46) x += "0";
+                    if (ascii[i] == 46 || ascii[i]==44) x += "0"; //jeśli .5 zrób 0.5
 
                     x += Convert.ToString((char)ascii[i]);
                     i++;
                     if (i >= n) break;
                 }
-                divided.Add(x);
+                if (x != "") divided.Add(x);
+
                 if (i >= n) break;
 
                 if (ascii[i] >= 58 || ascii[i] <= 47)
                 {
-                    //znak
+                    //każdy znak do osobnego stringa
                     x = Convert.ToString((char)ascii[i]);
                     divided.Add(x);
                     i++;
                 }
+            }
+            for (int j = 0; j < divided.Count; j++)
+            {
+                for (int k = 0; k < divided[j].Length; k++)
+                    Console.WriteLine($"Znak:{j} " + divided[j]);
             }
             return divided;
         }
@@ -72,44 +78,52 @@ namespace Kalkulator
             double temp = 0;
             double sec;
             int n = ls.Count - 1;
-            if (str == "") return "";
+            if (str == "") return ""; //nigdzie nie ma nic
             else
             {
 
-                byte[] ascii = Encoding.ASCII.GetBytes(ls[0]);
-
-                //żeby pierwszy i ostatni element nie był przypadkowo jakimś znakiem
-                if ((ascii[0] >= 58 || ascii[0] <= 47) && ascii[0] != 46 && ascii[0] != 45)
-                    ls.RemoveAt(0);
-
-                n = ls.Count - 1;
-                ascii = Encoding.ASCII.GetBytes(ls[n]);
+                byte[] ascii = Encoding.ASCII.GetBytes(ls[n]);
+                //żeby pierwszy element nie był przypadkowo jakimś znakiem
                 if (ascii[0] >= 58 || ascii[0] <= 47)
                     ls.RemoveAt(n);
 
-                n = ls.Count - 1;
-                if (ls == null)
-                {
-                    ls = new List<String>();
-                    ls.Add(mw.savedT.Text);
-                }
-                Console.WriteLine(ls[0]);
-                temp = Sd(ls[0]);
 
+                ascii = Encoding.ASCII.GetBytes(ls[0]);
+                // żeby pierwszy element nie był przypadkowo jakimś znakiem(poza -albo.)
+                if ((ascii[0] >= 58 || ascii[0] <= 47) && ascii[0] != 46 && ascii[0] != 45)
+                    ls.RemoveAt(0);
+                n = ls.Count - 1;
                 int i = 1;
+
+                if (ls[0] == "-") temp = -Sd(ls[1]);
+
+                n = ls.Count - 1;
+
+                //pierwsze temp;
+
+
                 bool znak = false;
                 while (i < n)
                 {
                     ascii = Encoding.ASCII.GetBytes(ls[i]);
-                    //      Console.WriteLine(ascii[0] + "||" + ls[i]);
+
                     if (ascii[0] >= 58 || ascii[0] <= 47)
                     {
+                        //jeśli niepierwsza liczba jest z minusem
                         if (ls[i + 1] == "-")
                         {
                             sec = -Sd(ls[i + 2]);
                             znak = true;
                         }
                         else sec = Sd(ls[i + 1]);
+
+                        //jeśli pierwsza liczba jest z minusem
+                        if (i == 2)
+                        {
+                            if (ls[0] == "-") temp = -Sd(ls[1]);
+                            else temp = Sd(ls[1]);
+                        }
+                        else temp = Sd(ls[i - 1]);
 
                         switch (ls[i])
                         {
@@ -144,17 +158,17 @@ namespace Kalkulator
                         if (i >= n) break;
                     }
 
-                    Console.WriteLine(temp);
+                    //      Console.WriteLine(temp);
                 }
 
                 return Convert.ToString(temp);
-
             }
         }
 
 
-            double Sd(string s) //string->double
+        double Sd(string s) //string->double
             {
+                
                 s = s.Replace('.', ',');
                 double d = Convert.ToDouble(s);
                 Console.WriteLine(s + " = " + d);
