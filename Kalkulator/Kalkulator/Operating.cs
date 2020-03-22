@@ -46,7 +46,10 @@ namespace Kalkulator
                 while ((ascii[i] < 58 && ascii[i] > 47) || ascii[i] == 46 || ascii[i] == 44)
                 //liczba                                    przecinek      lub kropka, bywa i tak
                 {
-                    if (ascii[i] == 46 || ascii[i]==44) x += "0"; //jeśli .5 zrób 0.5
+                    //wszyscy lubimy pisać .5 zamiast 0.5
+                    if ( ascii[i]==44 && i>0 && (ascii[i-1] >= 58 || ascii[i-1] <= 47)) x += "0"; 
+                    if (ascii[i] == 46 && i > 0 && (ascii[i - 1] >= 58|| ascii[i - 1] <= 47)) x += "0";
+                    if(i==0 && (ascii[i] == 44 || ascii[i] == 46)) x += "0";
 
                     x += Convert.ToString((char)ascii[i]);
                     i++;
@@ -63,11 +66,6 @@ namespace Kalkulator
                     divided.Add(x);
                     i++;
                 }
-            }
-            for (int j = 0; j < divided.Count; j++)
-            {
-                for (int k = 0; k < divided[j].Length; k++)
-                    Console.WriteLine($"Znak:{j} " + divided[j]);
             }
             return divided;
         }
@@ -100,7 +98,7 @@ namespace Kalkulator
 
                 n = ls.Count - 1;
 
-                //pierwsze temp;
+                //jeśli pierwsza liczba jest z minusem
                 if (ls[0] == "-")
                 {
                     temp = -Sd(ls[1]);
@@ -125,7 +123,7 @@ namespace Kalkulator
                         }
                         else sec = Sd(ls[i + 1]);
 
-                        //jeśli pierwsza liczba jest z minusem
+
 
 
                         switch (ls[i])
@@ -161,8 +159,18 @@ namespace Kalkulator
                         if (i >= n) break;
                     }
 
-                    //      Console.WriteLine(temp);
                 }
+
+
+                int len = 42;
+                string st = "";
+                string tempS = Convert.ToString(temp);
+                if (tempS.Length >= len)
+                    st = tempS.Substring(0, len);
+                else st = tempS;
+
+                temp = Convert.ToDouble(st);
+
 
                 return Convert.ToString(temp);
             }
@@ -174,7 +182,7 @@ namespace Kalkulator
                 
                 s = s.Replace('.', ',');
                 double d = Convert.ToDouble(s);
-                Console.WriteLine(s + " = " + d);
+            //    Console.WriteLine(s + " = " + d);
                 return d;
             }
     }

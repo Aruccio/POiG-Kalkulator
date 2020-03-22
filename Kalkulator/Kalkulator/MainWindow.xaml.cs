@@ -167,7 +167,7 @@ namespace Kalkulator
                     }
 
 
-                    if (canbe)
+//                    if (canbe)
                     {
                         double x;
                         decimal d;
@@ -176,9 +176,12 @@ namespace Kalkulator
                         {
                             //dwa instanty
                             case "znak":
-                                tekst.Text = tekst.Text.Replace('.', ',');
-                                x = Convert.ToDouble(tekst.Text) * (-1);
-                                tekst.Text = Convert.ToString(x);
+                                if (canbe)
+                                {
+                                    tekst.Text = tekst.Text.Replace('.', ',');
+                                    x = Convert.ToDouble(tekst.Text) * (-1);
+                                    tekst.Text = Convert.ToString(x);
+                                }
                                 break;
                             case "odwrotnosc":
                                 tekst.Text = tekst.Text.Replace('.', ',');
@@ -189,26 +192,36 @@ namespace Kalkulator
                                 break;
                             //dodawane do stringa
                             case "kwadrat":
+                                if(!canbe)
+                                    wholeText = wholeText.Remove(wholeText.Length - 1);
                                 wholeText += tekst.Text;
                                 wholeText += "^"; //94
                                 tekst.Text = "";
                                 break;
                             case "dzielenie":
+                                if (!canbe)
+                                    wholeText = wholeText.Remove(wholeText.Length - 1);
                                 wholeText += tekst.Text;
                                 wholeText += "/"; //44
                                 tekst.Text = "";
                                 break;
                             case "mnozenie":
+                                if (!canbe)
+                                    wholeText = wholeText.Remove(wholeText.Length - 1);
                                 wholeText += tekst.Text;
                                 wholeText += "*"; //42
                                 tekst.Text = "";
                                 break;
                             case "minus":
+                                if (!canbe)
+                                    wholeText = wholeText.Remove(wholeText.Length - 1);
                                 wholeText += tekst.Text;
                                 wholeText += "-"; //45
                                 tekst.Text = "";
                                 break;
                             case "plus":
+                                if (!canbe)
+                                    wholeText = wholeText.Remove(wholeText.Length - 1);
                                 wholeText += tekst.Text;
                                 wholeText += "+"; //43
                                 tekst.Text = "";
@@ -224,7 +237,7 @@ namespace Kalkulator
                 }
                 else if(!IsSpecial(button))
                 {
-                    if(tb.Text.Length<14)
+                    if(tb.Text.Length<13)
                     {
                         //cyfra lub przecinek
                         if (button == przecinek)
