@@ -31,7 +31,8 @@ namespace Kalkulator
             //podzieli string na liczby i znaki,
             //przykładowo dla 13+45/5 da {"13","+","45", "/","5"}
             // dla 13+5.6 da {"13","+", "5.6"}
-            tekst = tekst.Replace('.', ',');
+            if(tekst.Contains("."))
+                tekst = tekst.Replace('.', ',');
             byte[] ascii = Encoding.ASCII.GetBytes(tekst);
             int n = ascii.Length;
             List<string> divided = new List<string>();

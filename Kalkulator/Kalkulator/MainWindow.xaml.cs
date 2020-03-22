@@ -118,6 +118,7 @@ namespace Kalkulator
             {
                 // znak =
                 saved.Text += tb.Text;
+                wholeText += tb.Text;
                 tb.Text = "";
                 tb.Text = opera.Calculate(wholeText);
                 end = true;
@@ -140,6 +141,7 @@ namespace Kalkulator
                         case "c":
                             tekst.Text = "";
                             savedT.Text = "";
+                            wholeText = "";
                             break;
                         case "ce":
                             tekst.Text = "";
