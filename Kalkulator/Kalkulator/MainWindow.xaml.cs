@@ -184,11 +184,15 @@ namespace Kalkulator
                                 }
                                 break;
                             case "odwrotnosc":
-                                tekst.Text = tekst.Text.Replace('.', ',');
-                                d = Convert.ToDecimal(tekst.Text);
-                                x = 1 / Convert.ToDouble(d);
-                                wholeText += Convert.ToString(x);
-                                tekst.Text = "";
+                                if(tekst.Text!="")
+                                {
+                                    tekst.Text = tekst.Text.Replace('.', ',');
+                                    d = Convert.ToDecimal(tekst.Text);
+                                    x = 1 / Convert.ToDouble(d);
+                                    wholeText += Convert.ToString(x);
+                                    tekst.Text = "";
+                                }
+
                                 break;
                             //dodawane do stringa
                             case "kwadrat":
