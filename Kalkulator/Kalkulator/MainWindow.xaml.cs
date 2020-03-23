@@ -178,13 +178,17 @@ namespace Kalkulator
                             case "znak":
                                 if (canbe)
                                 {
-                                    tekst.Text = tekst.Text.Replace('.', ',');
-                                    x = Convert.ToDouble(tekst.Text) * (-1);
-                                    tekst.Text = Convert.ToString(x);
+                                    if (tekst.Text != "")
+                                    {
+                                        tekst.Text = tekst.Text.Replace('.', ',');
+                                        x = Convert.ToDouble(tekst.Text) * (-1);
+                                        wholeText += Convert.ToString(x);
+                                        tekst.Text = "";
+                                    }
                                 }
                                 break;
                             case "odwrotnosc":
-                                if(tekst.Text!="")
+                                if (tekst.Text != "")
                                 {
                                     tekst.Text = tekst.Text.Replace('.', ',');
                                     d = Convert.ToDecimal(tekst.Text);
@@ -196,46 +200,56 @@ namespace Kalkulator
                                 break;
                             //dodawane do stringa
                             case "kwadrat":
-                                if(!canbe)
-                                    wholeText = wholeText.Remove(wholeText.Length - 1);
-                                wholeText += tekst.Text;
-                                wholeText += "^"; //94
-                                tekst.Text = "";
+                                if (canbe && wholeText != null)
+                                //      wholeText = wholeText.Remove(wholeText.Length - 1);
+                                {
+                                    wholeText += tekst.Text;
+                                    wholeText += "^"; //94
+                                    tekst.Text = "";
+                                }
                                 break;
                             case "dzielenie":
-                                if (!canbe)
-                                    wholeText = wholeText.Remove(wholeText.Length - 1);
-                                wholeText += tekst.Text;
-                                wholeText += "/"; //44
-                                tekst.Text = "";
+                                if (canbe && wholeText != null)
+                                //     wholeText = wholeText.Remove(wholeText.Length - 1);
+                                {
+                                    wholeText += tekst.Text;
+                                    wholeText += "/"; //44
+                                    tekst.Text = "";
+                                }
                                 break;
                             case "mnozenie":
-                                if (!canbe)
-                                    wholeText = wholeText.Remove(wholeText.Length - 1);
-                                wholeText += tekst.Text;
-                                wholeText += "*"; //42
-                                tekst.Text = "";
+                                if (canbe && wholeText != null)
+                                //      wholeText = wholeText.Remove(wholeText.Length - 1);
+                                {
+                                    wholeText += tekst.Text;
+                                    wholeText += "*"; //42
+                                    tekst.Text = "";
+                                }
                                 break;
                             case "minus":
-                                if (!canbe)
-                                    wholeText = wholeText.Remove(wholeText.Length - 1);
+                                if (canbe && wholeText != null)
+                                { 
                                 wholeText += tekst.Text;
                                 wholeText += "-"; //45
                                 tekst.Text = "";
+                                }
                                 break;
                             case "plus":
-                                if (!canbe)
-                                    wholeText = wholeText.Remove(wholeText.Length - 1);
-                                wholeText += tekst.Text;
-                                wholeText += "+"; //43
-                                tekst.Text = "";
+                                if (canbe && wholeText != null)
+                                //    wholeText = wholeText.Remove(wholeText.Length - 1);
+                                {
+                                    wholeText += tekst.Text;
+                                    wholeText += "+"; //43
+                                    tekst.Text = "";
+                                }
                                 break;
                         }
                     }
 
                     //żeby nie wychodziło za ramki savedT
-                    int len =42; 
-                    if (wholeText.Length >= len)
+                    int len =42;
+                    if (wholeText == null) wholeText = "";
+                    if ( wholeText.Length >= len)
                         saved.Text = wholeText.Substring(wholeText.Length - len, len);
                     else saved.Text = wholeText;
                 }
